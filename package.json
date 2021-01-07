@@ -1,0 +1,33 @@
+{
+  "name": "bookingApp",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "test": "test"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Neon",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "@reduxjs/toolkit": "^1.5.0",
+    "axios": "^0.21.1",
+    "babel-loader": "^8.2.2",
+    "crypto": "^1.0.1",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-redux": "^7.2.2",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "url": "^0.11.0",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.1"
+  }
+}
