@@ -1,5 +1,5 @@
 import axios from "axios"
-import { GET_ROOM_DATA, GET_RESERVATION_DATA } from "./types"
+import { GET_ROOM_DATA, RESERVATION_CHECK } from "./types"
 
 
 export const getRoomData = () => (dispatch) => {
@@ -14,11 +14,12 @@ export const getRoomData = () => (dispatch) => {
 }
 
 
-export const getReservationData = () => (dispatch) => {
-    axios.get("/api/orders/")
+export const reservationCheck = (dates) => (dispatch) => {
+    axios.post("/api/reservation_check/", dates)
         .then(res => {
+            res.data.reverse()
             dispatch({
-                type: GET_RESERVATION_DATA,
+                type: RESERVATION_CHECK,
                 payload: res.data
             })
         })

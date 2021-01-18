@@ -1,0 +1,15 @@
+@import "./rooms.scss";
+@import "./booking.scss";
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  h1 {
+    text-align: center;
+  }
+}

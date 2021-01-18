@@ -1,9 +1,9 @@
-import { GET_ROOM_DATA, GET_RESERVATION_DATA } from '../actions/types'
+import { GET_ROOM_DATA, RESERVATION_CHECK } from '../actions/types'
 
 
 const initialState = {
     roomData: [],
-    reservation_data: []
+    free_rooms: []
 }
 
 export default function (state = initialState, action) {
@@ -13,10 +13,10 @@ export default function (state = initialState, action) {
                 ...state,
                 roomData: action.payload
             }
-        case GET_RESERVATION_DATA:
+        case RESERVATION_CHECK:
             return {
                 ...state,
-                reservation_data: action.payload
+                free_rooms: action.payload
             }
         default: {
             return state

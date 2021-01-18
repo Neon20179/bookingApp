@@ -11,6 +11,7 @@ class Room(models.Model):
     name = models.CharField('Name', max_length=255)
     price = models.PositiveIntegerField('Price')
     main_image = models.ImageField('Main image', upload_to=get_upload_path)
+    description = models.TextField('Description', default='')
     show = models.BooleanField('Show', default=True)
 
     def __str__(self):
@@ -19,11 +20,11 @@ class Room(models.Model):
 
 class Reservation(models.Model):
     """Booking order model"""
-    room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True, related_name='order_room', blank=True)
+    room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True, related_name='order_room')
     name = models.CharField('Name', max_length=255)
     phone_number = models.PositiveIntegerField('Phone number')
-    arrival_date = models.DateField('Arrival Date', blank=True, null=True)
-    leaving_date = models.DateField('Leaving Date', blank=True, null=True)
+    arrival_date = models.DateField('Arrival Date', null=True)
+    leaving_date = models.DateField('Leaving Date', null=True)
     guests = models.PositiveIntegerField('Guests')
 
     def __str__(self):

@@ -18,17 +18,15 @@ def _get_actual_reservations() -> list:
 
 
 def _can_be_booked(reservation: Reservation, request) -> bool:
-    if request.data["arrival_date"] >= _get_now_date():
-        if request.data["arrival_date"] >= str(reservation.leaving_date) or request.data["leaving_date"] <= str(
-                reservation.arrival_date):
-            return True
-        else:
-            return False
+    if request.data["arrival_date"] >= str(reservation.leaving_date) or request.data["leaving_date"] <= str(
+            reservation.arrival_date):
+        return True
     else:
         return False
 
 
 def _room_is_free(reservations, request) -> bool:
+    """ Checks if the room is free """
     same_reservations = [rv for rv in reservations if
                          rv.room.id == request.data["room"] and not _can_be_booked(rv, request)]
     return True if not same_reservations else False

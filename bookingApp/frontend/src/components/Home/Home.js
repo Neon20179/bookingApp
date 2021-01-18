@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import Rooms from './Rooms'
-import Order from './Order/Order'
+import Booking from './Booking/Booking'
 
 class Home extends Component {
     render() {
         return (
             <main>
-                <h1>Home</h1>
-                <Order />
+                <h1>Booking App</h1>
                 <Rooms />
-
+                <Booking />
             </main>
         )
     }
