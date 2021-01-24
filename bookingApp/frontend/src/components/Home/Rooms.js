@@ -51,6 +51,7 @@ class Rooms extends Component {
                                                 <div className="content">
                                                     <h3>{room.name}</h3>
                                                     <p>{room.description}</p>
+                                                    <h5>guests: {room.guests}</h5>
                                                     <h5>price: {room.price}&#36;</h5>
                                                 </div>
                                             </div>
@@ -62,6 +63,7 @@ class Rooms extends Component {
                                             <div className="content">
                                                 <h3>{room.name}</h3>
                                                 <p>{room.description}</p>
+                                                <h5>guests: {room.guests}</h5>
                                                 <h5>price: {room.price}&#36;</h5>
                                             </div>
                                         </div>

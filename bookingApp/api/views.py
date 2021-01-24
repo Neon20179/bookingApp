@@ -32,11 +32,14 @@ def reservation_check_for_free_rooms(request):
 def book_room(request):
     """ Creates new reservation. """
     if request.data["arrival_date"] < request.data["leaving_date"] and request.data["arrival_date"] >= _get_now_date():
-        if _room_is_free(_get_actual_reservations(), request):
-            serializer = PostReservationSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        if request.data['guests'] <= Room.objects.get(pk=request.data['room']).guests:
+            if _room_is_free(_get_actual_reservations(), request):
+                serializer = PostReservationSerializer(data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
     else:

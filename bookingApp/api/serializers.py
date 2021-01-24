@@ -13,6 +13,7 @@ class RoomSerializer(serializers.ModelSerializer):
 
 class PostReservationSerializer(serializers.ModelSerializer):
     """Reservation serializer for post request method from guest user"""
+
     class Meta:
         model = Reservation
         fields = '__all__'

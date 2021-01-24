@@ -5,7 +5,6 @@ class Booking extends Component {
     render() {
         return (
             <section className="booking-section">
-                <h2>Book room</h2>
                 <Form />
             </section>
         )

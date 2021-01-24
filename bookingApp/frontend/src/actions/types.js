@@ -1,2 +1,5 @@
 export const GET_ROOM_DATA = "GET_ROOM_DATA"
 export const RESERVATION_CHECK = "RESERVATION_CHECK"
+export const RESERVATION_PROP = "RESERVATION_PROP"
+export const BOOK_ROOM = "BOOK_ROOM"
+export const SHOW_ALERT = "SHOW_ALERT"

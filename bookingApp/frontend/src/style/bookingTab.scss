@@ -1,0 +1,138 @@
+.booking-tab {
+  position: fixed;
+  width: 350px;
+  height: 100vh;
+  right: -350px;
+  z-index: 1;
+  background: #30384d;
+  transition: all 1s ease;
+
+  .booking-tab-container {
+    position: relative;
+
+    h2 {
+      padding: 3rem 0 3rem 2rem;
+      margin: 0;
+      font-size: 2.5rem;
+      color: #262936;
+    }
+
+    form {
+      padding: 0 1rem;
+
+      img {
+        width: 320px;
+      }
+
+      h3 {
+        position: relative;
+
+        span {
+          position: absolute;
+          right: 0;
+        }
+      }
+
+      h5 {
+        font-size: 1.1rem;
+        margin: 0;
+        padding-bottom: 1rem;
+      }
+
+      .dates {
+        margin: 0.6rem 0;
+        display: grid;
+
+        .date {
+          padding: 0.25rem 0;
+          position: relative;
+
+          span {
+            position: absolute;
+            right: 0;
+          }
+        }
+      }
+
+      input {
+        background: #262936;
+        width: 290px;
+        border: none;
+        height: 35px;
+        border-radius: 3px;
+        font-size: 1rem;
+        padding: 0 1rem;
+        margin: 0.5rem 0;
+        color: #f0f5fc;
+
+        ::placeholder {
+          color: #3d4457;
+          opacity: 1;
+        }
+
+        &:focus {
+          outline: none !important;
+        }
+      }
+
+      .booking-btn {
+        display: inline-block;
+        position: relative;
+        width: 12rem;
+        cursor: pointer;
+        margin-top: 1.5rem;
+        background: none;
+        border: none;
+
+        &:focus {
+          outline: none !important;
+        }
+
+        &:hover {
+          .btn-circle {
+            width: 100%;
+
+            .btn-arrow {
+              transform: rotate(-45deg) translate(10px, 10px);
+            }
+          }
+        }
+
+        .btn-circle {
+          position: relative;
+          width: 3rem;
+          height: 3rem;
+          background: linear-gradient(to right, #ee6c80, #f6a487);
+          border-radius: 1.625rem;
+          transition: all 0.6s ease;
+
+          .btn-arrow {
+            width: 0.8rem;
+            height: 0.8rem;
+            top: 1rem;
+            left: 0.8rem;
+            position: absolute;
+            border-bottom: solid #fff 2px;
+            border-right: solid #fff 2px;
+            transform: rotate(-45deg);
+            transition: all 0.6s ease;
+          }
+        }
+
+        .btn-text {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          text-align: center;
+          text-transform: uppercase;
+          transform: translate(5px, 15px);
+          transition: all 0.6s ease;
+          font-size: 1rem;
+          color: #f0f5fc;
+        }
+      }
+    }
+  }
+}

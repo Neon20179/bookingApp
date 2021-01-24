@@ -6,7 +6,6 @@ class Home extends Component {
     render() {
         return (
             <main>
-                <h1>Booking App</h1>
                 <Rooms />
                 <Booking />
             </main>

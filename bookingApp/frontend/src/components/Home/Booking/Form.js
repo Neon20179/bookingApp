@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from "prop-types"
 import { reservationCheck } from '../../../actions/axiosApi'
+import { sendReservationProp } from '../../../actions/propActions'
 
 
 class Form extends Component {
@@ -21,14 +22,16 @@ class Form extends Component {
 
     handleSubmit = event => {
         event.preventDefault()
-        const { arrival_date, leaving_date } = this.state
-        const dates = { arrival_date, leaving_date }
-        this.props.reservationCheck(dates)
+        this.props.reservationCheck(this.state)
+    }
+
+    sendFreeRoomPropToBookingTab = free_room => {
+        const reservation_prop = Object.assign({}, this.state, free_room)
+        this.props.sendReservationProp(reservation_prop)
     }
 
     render() {
         const { arrival_date, leaving_date } = this.state
-        let thumbnailIdx = 0
         return (
             <div className="booking-form-container">
                 <form onSubmit={this.handleSubmit}>
@@ -36,31 +39,30 @@ class Form extends Component {
                     <input type="date" name="leaving_date" required onChange={this.handleChange} value={leaving_date} />
                     <button value="" type="submit">Find</button>
                 </form>
-                <div className="reservation-data-result">
-                    {this.props.free_rooms.map(free_room => (
-                        <div className="reservation-data-result__block" key={free_room.id}>
-                            <img src={free_room.main_image} alt="" />
-                            <div className="thumbnail-images">
-                                {free_room.room_image.map(thumbnailImage => {
-                                    thumbnailIdx++
-                                    return (
-                                        <div className="thumbnail-image">
-                                            <img src={thumbnailImage.split(': ')[1]} key={thumbnailIdx}></img>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                            <h3>{free_room.name}</h3>
-                            <h5>price: {free_room.price}&#36;</h5>
-                            <a className="booking-btn">
-                                <div className="btn-circle">
-                                    <div className="btn-arrow"></div>
+                {this.props.free_rooms.length !== 0 ?
+                    <div className="reservation-data-result">
+                        {this.props.free_rooms.map(free_room => (
+                            <div className="reservation-data-result__block" key={free_room.id}>
+                                <img src={free_room.main_image} alt="" />
+                                <div className="thumbnail-images">
+                                    {free_room.room_image.map(thumbnailImage => {
+                                        const [id, src] = thumbnailImage.split(': ')
+                                        return (
+                                            <div className="thumbnail-image">
+                                                <img src={src} key={parseInt(id, 10)}></img>
+                                            </div>
+                                        )
+                                    })}
                                 </div>
-                                <span className="btn-text">Book room</span>
-                            </a>
-                        </div>
-                    ))}
-                </div>
+                                <h3>{free_room.name}</h3>
+                                <h5>price: {free_room.price}&#36;</h5>
+                                <button className="booking-btn" onClick={() => this.sendFreeRoomPropToBookingTab(free_room)}>
+                                    Book room
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                    : <h2>select booking dates</h2>}
             </div>
         )
     }
@@ -70,4 +72,4 @@ const mapStateToProps = (state) => ({
     free_rooms: state.roomReducer.free_rooms
 })
 
-export default connect(mapStateToProps, { reservationCheck })(Form)
+export default connect(mapStateToProps, { reservationCheck, sendReservationProp })(Form)
