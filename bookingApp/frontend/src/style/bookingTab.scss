@@ -37,6 +37,12 @@
         font-size: 1.1rem;
         margin: 0;
         padding-bottom: 1rem;
+        position: relative;
+
+        span {
+          position: absolute;
+          right: 0;
+        }
       }
 
       .dates {

@@ -6,20 +6,24 @@ import { showAlert } from './alertActions'
 export const getRoomData = () => (dispatch) => {
     axios.get("/api/rooms/")
         .then(res => {
-            res.data.reverse()
             dispatch({
                 type: GET_ROOM_DATA,
                 payload: res.data
             })
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            dispatch(showAlert({
+                type: "ERROR",
+                color: "red",
+                text: "Check your internet connection"
+            }))
+        })
 }
 
 
 export const reservationCheck = (dates) => (dispatch) => {
     axios.post("/api/reservation_check/", dates)
         .then(res => {
-            res.data.reverse()
             dispatch({
                 type: RESERVATION_CHECK,
                 payload: res.data
