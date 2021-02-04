@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from "prop-types"
-import { reservationCheck } from '../../../actions/axiosApi'
-import { sendReservationProp } from '../../../actions/propActions'
+import { reservationCheck } from '../../../../actions/guest_actions/guestApi'
+import { sendReservationProp } from '../../../../actions/guest_actions/propActions'
 
 
 class Form extends Component {

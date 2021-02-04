@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Provider } from "react-redux"
 import store from '../store'
 import '../style/app.scss'
-import Home from './Home/Home'
-import BookingTab from './BookingTab'
+import Administrator from './Administrator/Administrator'
+import Guest from './Guest/Guest'
 import Alert from './Alert'
 
 class App extends Component {
@@ -13,8 +13,8 @@ class App extends Component {
             <Provider store={store}>
                 <Router>
                     <Alert />
-                    <BookingTab />
-                    <Route exact path={"/"} component={Home} />
+                    <Route exact path={"/administrator"} component={Administrator} />
+                    <Route exact path={"/"} component={Guest} />
                 </Router>
             </Provider>
         )

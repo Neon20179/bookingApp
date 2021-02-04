@@ -1,0 +1,84 @@
+@import "../colors.scss";
+
+.reservationTable {
+  table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  .table-wrapper {
+    display: flex;
+    border: 1px solid $darkGrey;
+
+    .nav-container {
+      width: 100px;
+      border-right: 1px solid $darkGrey;
+
+      ul {
+        width: 100px;
+      }
+
+      li {
+        text-align: center;
+        height: 23.2px;
+        border-bottom: 1px solid $darkGrey;
+      }
+    }
+
+    .table-container {
+      overflow: auto;
+      position: relative;
+
+      td {
+        border: 1px solid $darkGrey;
+        width: 30px;
+        height: 23px;
+        color: $white;
+      }
+
+      .date-col {
+        color: $white;
+        padding: 0 2px;
+        width: 90px;
+        text-align: center;
+      }
+
+      .data-block {
+        position: absolute;
+        z-index: 1;
+        text-align: center;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .container {
+    margin-top: 3rem;
+
+    .add-form {
+      margin-bottom: 4rem;
+    }
+
+    .change-form {
+      margin-bottom: 4rem;
+
+      .btn-container {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      .add-form {
+        margin: 0 0 4rem 0;
+      }
+
+      .change-form {
+        margin: 0 0 4rem 0;
+      }
+    }
+  }
+}

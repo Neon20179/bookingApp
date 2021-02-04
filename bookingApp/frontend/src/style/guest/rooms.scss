@@ -1,3 +1,5 @@
+@import "../colors.scss";
+
 .rooms-section {
   position: relative;
   width: 100%;
@@ -45,7 +47,7 @@
               position: absolute;
               bottom: 0;
               font-weight: 100;
-              color: #fff;
+              color: $white;
               margin: 2rem;
 
               h3 {
@@ -94,8 +96,8 @@
             width: 20px;
             height: 20px;
             position: relative;
-            border-right: 2px solid #f0f5fc;
-            border-bottom: 2px solid #f0f5fc;
+            border-right: 2px solid $white;
+            border-bottom: 2px solid $white;
             transform: rotate(-45deg);
             transition: all 0.8s ease;
           }
@@ -117,8 +119,8 @@
             width: 20px;
             height: 20px;
             position: relative;
-            border-left: 2px solid #f0f5fc;
-            border-bottom: 2px solid#f0f5fc;
+            border-left: 2px solid $white;
+            border-bottom: 2px solid$white;
             transform: rotate(45deg);
             transition: all 0.8s ease;
           }

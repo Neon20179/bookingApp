@@ -7,14 +7,13 @@ const initialState = {
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case SHOW_ALERT: {
+        case SHOW_ALERT:
             return {
                 ...state,
                 alert_info: action.payload
             }
-        }
-        default: {
+
+        default:
             return state
-        }
     }
 }

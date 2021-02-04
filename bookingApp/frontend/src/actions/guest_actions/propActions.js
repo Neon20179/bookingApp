@@ -1,4 +1,4 @@
-import { RESERVATION_PROP } from './types'
+import { RESERVATION_PROP } from '../types'
 
 export const sendReservationProp = reservation_prop => dispatch => {
     dispatch({

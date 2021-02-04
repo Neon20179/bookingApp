@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from "prop-types"
-import { getRoomData } from '../../actions/axiosApi'
+import { getRoomData } from '../../../actions/guest_actions/guestApi'
 
 
 class Rooms extends Component {
@@ -18,7 +18,6 @@ class Rooms extends Component {
 
         const prevSlide = () => {
             const images = document.querySelectorAll('.slides .room-slide')
-            console.log(images)
             images[idx].classList.remove('active')
             idx = (idx - 1 + images.length) % images.length
             images[idx].classList.add('active')

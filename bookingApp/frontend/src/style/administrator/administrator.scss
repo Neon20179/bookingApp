@@ -1,0 +1,12 @@
+@import "../colors.scss";
+@import "./table.scss";
+@import "./reservationForm.scss";
+
+.administrator {
+  min-height: 100vh;
+
+  h1 {
+    color: $titleColor;
+    font-size: 5rem;
+  }
+}

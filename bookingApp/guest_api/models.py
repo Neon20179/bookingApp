@@ -24,10 +24,12 @@ class Reservation(models.Model):
     """Booking order model"""
     room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True, related_name='order_room')
     name = models.CharField('Name', max_length=255)
+    email = models.CharField("Email", max_length=255, default='')
     phone_number = models.CharField('Phone number', max_length=24)
     arrival_date = models.DateField('Arrival Date', null=True)
     leaving_date = models.DateField('Leaving Date', null=True)
     guests = models.PositiveIntegerField('Guests')
+    accepted = models.BooleanField(default=False)
 
     def __str__(self):
         return f'Name: {self.name} / Room: {self.room}'

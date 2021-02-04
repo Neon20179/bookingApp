@@ -16,4 +16,4 @@ class PostReservationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Reservation
-        fields = '__all__'
+        fields = ['room', 'name', 'email', 'phone_number', 'arrival_date', 'leaving_date', 'guests']

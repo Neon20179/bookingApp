@@ -1,4 +1,4 @@
-import { GET_ROOM_DATA, RESERVATION_CHECK } from '../actions/types'
+import { GET_ROOM_DATA, RESERVATION_CHECK } from '../../actions/types'
 
 
 const initialState = {

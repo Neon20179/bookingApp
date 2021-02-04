@@ -1,13 +1,16 @@
-@import "./rooms.scss";
-@import "./booking.scss";
-@import "./bookingTab.scss";
 @import "./alert.scss";
+@import "./guest/guest.scss";
+@import "./administrator/administrator.scss";
+@import "./colors.scss";
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #3d4457;
-  color: #f0f5fc;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: $lightGrey;
+  color: $white;
 }

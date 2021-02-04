@@ -1,4 +1,4 @@
-import { RESERVATION_PROP, BOOK_ROOM } from '../actions/types'
+import { RESERVATION_PROP, BOOK_ROOM } from '../../actions/types'
 
 
 const initialState = {

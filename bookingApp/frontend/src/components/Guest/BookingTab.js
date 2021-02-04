@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { bookRoom } from '../actions/axiosApi'
-import { sendReservationProp } from '../actions/propActions'
+import { bookRoom } from '../../actions/guest_actions/guestApi'
+import { sendReservationProp } from '../../actions/guest_actions/propActions'
+import { handlePhoneNumberKeyBackspaceWrapper, handlePhoneNumberChangeWrapper } from '../supportFunctions'
+
+
+const { handlePhoneNumberKeyBackspace } = handlePhoneNumberKeyBackspaceWrapper
+const { handlePhoneNumberChange } = handlePhoneNumberChangeWrapper
 
 class BookingTab extends Component {
     constructor(props) {
@@ -9,53 +14,17 @@ class BookingTab extends Component {
         this.state = {
             name: '',
             phone_number: '',
+            email: '',
             guests: '',
             is_backspace: false,
         }
+        this.handlePhoneNumberKeyBackspace = handlePhoneNumberKeyBackspace.bind(this)
+        this.handlePhoneNumberChange = handlePhoneNumberChange.bind(this)
     }
 
-    handlePhoneNumberKey = event => {
-        if (event.keyCode == 8 || event.charCode == 46) {
-            this.setState({ is_backspace: true })
-        } else {
-            this.setState({ is_backspace: false })
-        }
-    }
-
-    handlePhoneNumberChange = event => {
-        String.prototype.splice = function (from, num, str) {
-            return this.slice(0, from) + str + this.slice(from + Math.abs(num));
-        };
-
-        let value = event.target.value.replace(/[^0-9.]/g, '');
-        if (!this.state.is_backspace) {
-            if (value.length < 12) {
-                if (value.length > 1) {
-                    value = value.splice(1, 0, ' ')
-                    value = value.splice(2, 0, '(')
-                    if (value.length > 6) {
-                        value = value.splice(6, 0, ')')
-                        if (value.length > 7) {
-                            value = value.splice(7, 0, ' ')
-                            if (value.length > 11) {
-                                value = value.splice(11, 0, '-')
-                                if (value.length > 14) {
-                                    value = value.splice(14, 0, '-')
-                                }
-                            }
-                        }
-                    }
-                }
-                this.setState({ phone_number: value });
-            }
-        } else {
-            this.setState({ phone_number: value });
-        }
-    }
-
-    handleNameChange = event => {
+    handleChange = event => {
         if (event.target.value.length <= 30) {
-            this.setState({ name: event.target.value })
+            this.setState({ [event.target.name]: event.target.value })
         }
     }
 
@@ -67,6 +36,7 @@ class BookingTab extends Component {
             arrival_date: this.props.reservation_prop.arrival_date,
             leaving_date: this.props.reservation_prop.leaving_date,
             name: this.state.name,
+            email: this.state.email,
             guests: this.props.reservation_prop.guests,
             phone_number: this.state.phone_number,
         }
@@ -75,6 +45,7 @@ class BookingTab extends Component {
         this.setState({
             name: '',
             phone_number: '',
+            email: '',
             guests: '',
             is_backspace: false,
         })
@@ -100,10 +71,13 @@ class BookingTab extends Component {
                             <div className="date"><font>Leaving date:</font> <span>{this.props.reservation_prop.leaving_date}</span></div>
                         </div>
                         <div className="name-input">
-                            <input type="text" required autoComplete="off" name="name" placeholder="Name" value={this.state.name} onChange={this.handleNameChange} />
+                            <input type="text" required autoComplete="off" name="name" placeholder="Name" value={this.state.name} onChange={this.handleChange} />
                         </div>
                         <div className="phone-number-input">
-                            <input type="text" required autoComplete="off" name="phone_number" value={this.state.phone_number} placeholder="X (XXX) XXX-XX-XX" onChange={this.handlePhoneNumberChange} onKeyDown={this.handlePhoneNumberKey} />
+                            <input type="text" required autoComplete="off" name="phone_number" value={this.state.phone_number} placeholder="X (XXX) XXX-XX-XX" onChange={this.handlePhoneNumberChange} onKeyDown={this.handlePhoneNumberKeyBackspace} />
+                        </div>
+                        <div className="email-input">
+                            <input type="text" required autoComplete="off" name="email" value={this.state.email} placeholder="email@gmail.com" onChange={this.handleChange} />
                         </div>
                         <button className="booking-btn" type="submit">
                             <div className="btn-circle">

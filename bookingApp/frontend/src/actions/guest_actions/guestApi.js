@@ -1,10 +1,10 @@
 import axios from "axios"
-import { BOOK_ROOM, GET_ROOM_DATA, RESERVATION_CHECK } from "./types"
-import { showAlert } from './alertActions'
+import { BOOK_ROOM, GET_ROOM_DATA, RESERVATION_CHECK } from "../types"
+import { showAlert } from '../alertActions'
 
 
 export const getRoomData = () => (dispatch) => {
-    axios.get("/api/rooms/")
+    axios.get("/guest_api/rooms/")
         .then(res => {
             dispatch({
                 type: GET_ROOM_DATA,
@@ -15,14 +15,14 @@ export const getRoomData = () => (dispatch) => {
             dispatch(showAlert({
                 type: "ERROR",
                 color: "red",
-                text: "Check your internet connection"
+                text: `Check your internet connection Error: (${err})`
             }))
         })
 }
 
 
 export const reservationCheck = (dates) => (dispatch) => {
-    axios.post("/api/reservation_check/", dates)
+    axios.post("/guest_api/reservation_check/", dates)
         .then(res => {
             dispatch({
                 type: RESERVATION_CHECK,
@@ -34,17 +34,19 @@ export const reservationCheck = (dates) => (dispatch) => {
 
 
 export const bookRoom = (reservation) => dispatch => {
-    axios.post("/api/book_room/", reservation)
+    axios.post("/guest_api/book_room/", reservation)
         .then(res => {
             dispatch({
                 type: BOOK_ROOM,
                 payload: res.data
             })
-            dispatch(showAlert({
-                type: "OK",
-                color: "green",
-                text: "You have successfully booked a room"
-            }))
+            dispatch(
+                showAlert({
+                    type: "OK",
+                    color: "green",
+                    text: "You have successfully booked a room"
+                })
+            )
         })
         .catch(err => {
             dispatch(showAlert({
