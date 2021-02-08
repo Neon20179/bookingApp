@@ -5,16 +5,8 @@ const COLORS = {
 };
 
 let cellAttributes = {}
-let reservationTableCords = {}
-
-export function getCell(data, cells) {
-    for (let idx = 0; idx < cells.length; idx++) {
-        if (`${data.room}-${data.arrival_date}` == cells[idx].className) {
-            return cells[idx]
-        }
-    }
-    return false
-}
+let reservationTableCordsY = 0
+let navContainerWidth = 0
 
 function getDiffDays(arrival_date, leaving_date) {
     const oneDay = 24 * 60 * 60 * 1000
@@ -73,24 +65,29 @@ function getPositionOfElement(el) {
     const distanceToTop = window.pageYOffset || document.documentElement.scrollTop;
 
     return {
-        top: rect.top + distanceToTop,
-        left: rect.left + distanceToLeft,
+        x: rect.left + distanceToLeft,
+        y: rect.top + distanceToTop,
     };
 }
 
-function getCellPositionRelativeTable(daysDiff) {
-    return cellAttributes.x + daysDiff * cellAttributes.width
+function getPositionRelativeToTable(idHorizontalDiff, idVerticalDiff) {
+    return {
+        x: cellAttributes.x + idHorizontalDiff * cellAttributes.width,
+        y: cellAttributes.y + idVerticalDiff * cellAttributes.height
+    }
 }
 
-function setAttributesOfDataBlock(block, blockWidth, data, cell) {
-    const yPosition = (getPositionOfElement(cell).top - reservationTableCords.y - 0.2)
-    const xPosition = (getCellPositionRelativeTable(getDiffDays(cellAttributes.date, data.arrival_date) + 2) + cellAttributes.width / 2)
+function setAttributesOfDataBlock(block, blockWidth, data) {
+    const position = getPositionRelativeToTable(
+        getDiffDays(cellAttributes.date, data.arrival_date),
+        data.room
+    )
 
     block.setAttribute("style", `
-            top: ${yPosition}px;
-            left: ${xPosition}px;
+            top: ${position.y - reservationTableCordsY}px;
+            left: ${position.x + cellAttributes.width / 2 + navContainerWidth - 20}px;
             width: ${blockWidth}px;
-            height: ${cellAttributes.height}px;`
+            height: ${cellAttributes.height - 2}px;`// (- 2) to see border between blocks
     )
 
     const today = dateToString(new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()))
@@ -153,7 +150,7 @@ function tableInit(rows, roomIds) {
     return table
 }
 
-export function createSingleDataBlock(data, table, sendPropToFormFunction, cell) {
+export function createSingleDataBlock(data, table, sendPropToFormFunction) {
     let dataBlock = document.createElement("div");
     const days = getDiffDays(data.arrival_date, data.leaving_date)
     const blockWidth = cellAttributes.width * days
@@ -161,26 +158,38 @@ export function createSingleDataBlock(data, table, sendPropToFormFunction, cell)
     dataBlock.classList.add("data-block");
     dataBlock.id = data.id;
 
-    setAttributesOfDataBlock(dataBlock, blockWidth, data, cell)
+    setAttributesOfDataBlock(dataBlock, blockWidth, data)
 
     dataBlock.onclick = () => sendPropToFormFunction(Object.assign({}, data, { mode: "Edit" }))
     table.appendChild(dataBlock);
 }
 
 // Initialize reservation data
-export function reservationDataInit(data, cells, table, reservationTable, sendPropToFormFunction) {
-    cellAttributes = { width: cells[0].clientWidth, height: cells[0].clientHeight, x: getPositionOfElement(cells[0]).left, y: getPositionOfElement(cells[0]).top, date: cells[0].textContent }
-    reservationTableCords = { x: getPositionOfElement(reservationTable).left, y: getPositionOfElement(reservationTable).top }
+export function reservationDataInit(data, table, sendPropToFormFunction, reservationTable) {
+    // Set the parameters of the first cell in the table
+    const cell = document.querySelector("table td")
+
+    const cords = getPositionOfElement(cell)
+    reservationTableCordsY = getPositionOfElement(reservationTable).y
+
+    cellAttributes = {
+        width: cell.offsetWidth,
+        height: cell.offsetHeight,
+        x: cords.x,
+        y: cords.y,
+        date: cell.textContent
+    }
 
     for (let idx = 0; idx < data.length; idx++) {
-        const cell = getCell(data[idx], cells)
-        createSingleDataBlock(data[idx], table, sendPropToFormFunction, cell)
+        createSingleDataBlock(data[idx], table, sendPropToFormFunction)
     }
 }
 
 export function reservationTableInit(roomNames, roomIds) {
     const tableContainer = document.querySelector(".table-container");
     const navContainer = document.querySelector(".nav-container");
+    navContainerWidth = navContainer.offsetWidth
+
     const table = tableInit(roomIds.length, roomIds)
     tableContainer.appendChild(table)
     navContainer.appendChild(roomsNavInit(roomNames));

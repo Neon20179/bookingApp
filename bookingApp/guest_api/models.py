@@ -42,4 +42,4 @@ class RoomImage(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='room_image', null=True)
 
     def __str__(self):
-        return f'{self.id}: /media/{self.image}'
+        return f'{self.name}: /media/{self.image}'

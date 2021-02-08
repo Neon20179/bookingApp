@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { getReservations } from '../../../actions/administrator_actions/administratorApi'
 import { getRoomData } from '../../../actions/guest_actions/guestApi'
 import { sendPropToForm } from '../../../actions/administrator_actions/propActions'
-import { reservationDataInit, reservationTableInit, createSingleDataBlock, getCell } from './tableInit'
+import { reservationDataInit, reservationTableInit, createSingleDataBlock } from './tableInit'
 
 
 class Table extends Component {
@@ -20,11 +20,10 @@ class Table extends Component {
     }
 
     dataInit = () => {
-        const reservationTable = document.querySelector(".reservationTable")
-        const cells = document.querySelectorAll("td");
+        const reservationTable = document.querySelector(".reservation-table")
         const table = document.querySelector(".table-container table");
 
-        reservationDataInit(this.props.reservations, cells, table, reservationTable, this.props.sendPropToForm)
+        reservationDataInit(this.props.reservations, table, this.props.sendPropToForm, reservationTable)
     }
 
     componentDidUpdate() {
@@ -49,16 +48,14 @@ class Table extends Component {
             if (oldDataBlock) {
                 oldDataBlock.remove()
             }
-            const cells = document.querySelectorAll("td")
-            const cell = getCell(this.props.action_reservation, cells)
 
-            createSingleDataBlock(this.props.action_reservation, table, this.props.sendPropToForm, cell)
+            createSingleDataBlock(this.props.action_reservation, table, this.props.sendPropToForm)
         }
     }
 
     render() {
         return (
-            <div className="reservationTable">
+            <div className="reservation-table">
                 <div className="table-wrapper">
                     <div className="nav-container"></div>
                     <div className="table-container"></div>

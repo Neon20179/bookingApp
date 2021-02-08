@@ -1,10 +1,18 @@
 from rest_framework import serializers
-from .models import Room, Reservation
+from .models import Room, Reservation, RoomImage
+
+
+class RoomImageSerializer(serializers.ModelSerializer):
+    """ Thumbnail image for room serializer """
+    
+    class Meta:
+        model = RoomImage
+        fields = ['id', 'image']
 
 
 class RoomSerializer(serializers.ModelSerializer):
     """Room serializer"""
-    room_image = serializers.StringRelatedField(many=True)
+    room_image = RoomImageSerializer(many=True)
 
     class Meta:
         model = Room
