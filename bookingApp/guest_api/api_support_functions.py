@@ -17,8 +17,8 @@ def _get_actual_reservations() -> list:
     return list(filter(lambda reserv: _is_not_expired(reserv), list(Reservation.objects.all())))
 
 
-def _can_be_booked(reservation: Reservation, request) -> bool:
-    if request.data["arrival_date"] >= str(reservation.leaving_date) or request.data["leaving_date"] <= str(
+def _can_be_booked(reservation: Reservation, user_arrival_date, user_leaving_date) -> bool:
+    if user_arrival_date >= str(reservation.leaving_date) or user_leaving_date <= str(
             reservation.arrival_date):
         return True
     else:
@@ -28,5 +28,6 @@ def _can_be_booked(reservation: Reservation, request) -> bool:
 def _room_is_free(reservations, request) -> bool:
     """ Checks if the room is free """
     same_reservations = [rv for rv in reservations if
-                         rv.room.id == request.data["room"] and not _can_be_booked(rv, request)]
+                         rv.room.id == request.data["room"] and not _can_be_booked(rv, request.data["arrival_date"],
+                                                                                   request.data["leaving_date"])]
     return True if not same_reservations else False

@@ -21,8 +21,8 @@ export const getRoomData = () => (dispatch) => {
 }
 
 
-export const reservationCheck = (dates) => (dispatch) => {
-    axios.post("/guest_api/reservation_check/", dates)
+export const reservationCheck = (arrival_date, leaving_date) => (dispatch) => {
+    axios.get(`/guest_api/reservation_check/?arrival_date=${arrival_date}&leaving_date=${leaving_date}`)
         .then(res => {
             dispatch({
                 type: RESERVATION_CHECK,

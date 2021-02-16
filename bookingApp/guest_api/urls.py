@@ -1,9 +1,8 @@
 from django.urls import path
-from .views import get_rooms, book_room, reservation_check_for_free_rooms
-
+from .views import RoomViewSet, book_room, reservation_check_for_free_rooms
 
 urlpatterns = [
-    path('rooms/', get_rooms),
+    path('rooms/', RoomViewSet.as_view()),
     path('book_room/', book_room),
-    path('reservation_check/', reservation_check_for_free_rooms)
+    path('reservation_check/', reservation_check_for_free_rooms),
 ]

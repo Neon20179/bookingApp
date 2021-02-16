@@ -22,7 +22,7 @@ class BookingForm extends Component {
 
     handleSubmit = event => {
         event.preventDefault()
-        this.props.reservationCheck(this.state)
+        this.props.reservationCheck(this.state.arrival_date, this.state.leaving_date)
     }
 
     sendFreeRoomPropToBookingTab = free_room => {
